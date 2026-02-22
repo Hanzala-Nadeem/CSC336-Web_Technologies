@@ -1,0 +1,116 @@
+/* GLOBAL RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* BASE FONT */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+    background: #fff;
+    color: #000;
+}
+
+/* HEADER */
+#main-header {
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 5px;
+    font-size: 14px;
+}
+
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+}
+
+.main-nav .logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.main-nav .menu a {
+    margin: 0 15px;
+    text-decoration: none;
+}
+
+.header-icons img {
+    width: 24px;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+/* HERO SECTION */
+#hero-section {
+    display: flex;
+    overflow: hidden;
+}
+
+.hero-slide {
+    position: relative;
+    width: 100%;
+}
+
+.hero-slide img {
+    width: 100%;
+    display: block;
+}
+
+.btn-primary {
+    position: absolute;
+    bottom: 40px;
+    left: 20px;
+    padding: 12px 25px;
+    background: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+/* FEATURED CATEGORIES */
+#featured-categories {
+    display: flex;
+    gap: 20px;
+    padding: 40px 50px;
+    justify-content: center;
+}
+
+.category-card {
+    text-align: center;
+}
+
+.category-card img {
+    width: 250px;
+}
+
+/* BRAND STORY */
+#brand-story {
+    text-align: center;
+    padding: 30px;
+}
+
+/* FOOTER */
+#main-footer {
+    background: #f2f2f2;
+    text-align: center;
+    padding: 25px 0;
+}
+
+#main-footer .btn-secondary {
+    background: #000;
+    color: #fff;
+    padding: 12px 30px;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 15px;
+}

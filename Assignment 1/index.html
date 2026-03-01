@@ -6,37 +6,42 @@
     <title>adidas Official Website | Sportswear</title>
     <link rel="stylesheet" href="css/styles.css">
     <script>
-    function slide(gridId, direction) {
-        const grid = document.getElementById(gridId);
-        const cardWidth = grid.querySelector('.product-card').offsetWidth + 16;
-        grid.scrollLeft += direction * cardWidth;
-    }
+        function slide(gridId, direction) {
+            const grid = document.getElementById(gridId);
+            const cardWidth = grid.querySelector('.product-card').offsetWidth + 16;
+            grid.scrollLeft += direction * cardWidth;
+        }
 
-    function toggleWishlist(btn) {
-        btn.classList.toggle('active');
-    }
+        function toggleWishlist(btn) {
+            btn.classList.toggle('active');
+        }
 
-    function updateScrollbar(gridId, thumbId) {
-        const grid = document.getElementById(gridId);
-        const thumb = document.getElementById(thumbId);
-        const scrollRatio = grid.scrollLeft / (grid.scrollWidth - grid.clientWidth);
-        const maxThumbLeft = 100 - 25; // 100% - thumb width%
-        thumb.style.left = (scrollRatio * maxThumbLeft) + '%';
-    }
+        function updateScrollbar(gridId, thumbId) {
+            const grid = document.getElementById(gridId);
+            const thumb = document.getElementById(thumbId);
+            const scrollRatio = grid.scrollLeft / (grid.scrollWidth - grid.clientWidth);
+            thumb.style.left = (scrollRatio * 75) + '%';
+        }
 
-    function trackClick(e, gridId, thumbId) {
-        const track = e.currentTarget;
-        const clickX = e.offsetX / track.offsetWidth;
-        const grid = document.getElementById(gridId);
-        grid.scrollLeft = clickX * (grid.scrollWidth - grid.clientWidth);
-        updateScrollbar(gridId, thumbId);
-    }
-</script>
+        function trackClick(e, gridId, thumbId) {
+            const track = e.currentTarget;
+            const clickX = e.offsetX / track.offsetWidth;
+            const grid = document.getElementById(gridId);
+            grid.scrollLeft = clickX * (grid.scrollWidth - grid.clientWidth);
+            updateScrollbar(gridId, thumbId);
+        }
+
+        function slideS(gridId, direction) {
+            const grid = document.getElementById(gridId);
+            const cardWidth = grid.querySelector('.sport-card').offsetWidth + 4;
+            grid.scrollLeft += direction * cardWidth;
+        }
+    </script>
 </head>
 <body>
-    <!-- HEADER / NAVIGATION -->
+
+    <!-- HEADER -->
     <header id="main-header">
-        <!-- Black promo bar with dropdown -->
         <div class="promo-bar">
             <div class="promo-content">
                 <span>Free returns & exchanges</span>
@@ -46,7 +51,6 @@
             </div>
         </div>
 
-        <!-- Top utility links -->
         <div class="utility-links">
             <a href="#">help</a>
             <a href="#">orders and returns</a>
@@ -56,7 +60,6 @@
             <a href="#">log in</a>
         </div>
 
-        <!-- Main navigation with logo and menu -->
         <div class="main-nav">
             <div class="logo">
                 <svg role="presentation" viewBox="100 100 50 32" xmlns="http://www.w3.org/2000/svg">
@@ -68,7 +71,7 @@
                     </path>
                 </svg>
             </div>
-            
+
             <nav class="menu">
                 <a href="#">MEN</a>
                 <a href="#">WOMEN</a>
@@ -77,372 +80,275 @@
                 <a href="#">SPORTS</a>
                 <a href="#">OUTLET</a>
             </nav>
-            
+
             <div class="header-icons">
                 <div class="search-container">
                     <input type="text" placeholder="Search" />
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                         <path d="M15.5 14H14.71L14.43 13.73C15.41 12.59 16 11.11 16 9.5C16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-0.59 4.23-1.57L14 14.71V15.5L19 20.49L20.49 19L15.5 14ZM9.5 14C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14Z" fill="black"/>
                     </svg>
                 </div>
-                
-                <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M9.22548 20H22.7744L26.4218 25.7316L25.5781 26.2684L22.2255 21H9.77443L6.42179 26.2684L5.57812 25.7316L9.22548 20Z" fill="black"></path>
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M16 17C18.761 17 21 14.761 21 12C21 9.23895 18.761 7 16 7C13.2377 7 11 9.23881 11 12C11 14.7612 13.2377 17 16 17ZM16 18C19.3133 18 22 15.3133 22 12C22 8.68667 19.3133 6 16 6C12.6853 6 9.99996 8.68667 9.99996 12C9.99996 15.3133 12.6853 18 16 18Z" fill="black"></path>
                 </svg>
-                
-                <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M6.7206 6H11.7071L16 10.2929L20.2929 6H25.2794L29.6328 13.0743L16 26.7071L2.36719 13.0743L6.7206 6ZM7.2794 7L3.63281 12.9257L16 25.2929L28.3672 12.9257L24.7206 7H20.7071L16 11.7071L11.2929 7H7.2794Z" fill="black"></path>
                 </svg>
-                
-                <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M21 4H11V8H6V28H26V8H21V4ZM20 9V12H21V9H25V27H7V9H11V12H12V9H20ZM20 8V5H12V8H20Z" fill="black"></path>
                 </svg>
             </div>
         </div>
     </header>
 
-    <!-- PROMO MESSAGING SECTION -->
+    <!-- PROMO BAR -->
     <section id="promo-messaging">
         <div class="promo-messaging-container">
             <div class="promo-text">
                 <span>New pieces. New energy. Shop the adidas trending edit now.</span>
             </div>
             <div class="promo-icon">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M4 15.3536L26.2929 15.3536L22.6464 11.7072L23.3536 11L28.2071 15.8536L23.3536 20.7072L22.6464 20L26.2929 16.3536L4 16.3536L4 15.3536Z" fill="var(--icon-primary-color, #000)"></path>
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M4 15.3536L26.2929 15.3536L22.6464 11.7072L23.3536 11L28.2071 15.8536L23.3536 20.7072L22.6464 20L26.2929 16.3536L4 16.3536L4 15.3536Z" fill="black"></path>
                 </svg>
             </div>
         </div>
     </section>
 
-<!-- HERO SECTION WITH F1 COLLECTION -->
-<section id="hero-section">
-    <div class="hero-image">
-        <img src="images/f1banner.avif" 
-             alt="adidas F1 collection featuring Gabriel Bortoleto and Nico Hülkenberg"
-             loading="eager"
-             fetchpriority="high">
-    </div>
-    
-    <!-- Text overlay on top of image -->
-    <div class="hero-overlay">
-        
-        <div class="collection-logos second">
-            
-            <span class="audi-f1">ADIDAS X AUDI REVOLUT F1 TEAM</span>
+    <!-- HERO -->
+    <section id="hero-section">
+        <div class="hero-image">
+            <img src="images/f1banner.avif" alt="adidas F1 collection" loading="eager" fetchpriority="high">
         </div>
-        
-        <span class="collection-title">On the charge. The first Teamwear collection</span>
-        
-        <div class="collection-buttons">
-            <a href="#" class="btn-primary">Shop now →</a>
-            <a href="#" class="btn-secondary">Explore more</a>
+        <div class="hero-overlay">
+            <span class="hero-tag"><b>ADIDAS X AUDI REVOLUT F1 TEAM</b></span>
+            <div class="hero-title-box">
+                <p class="hero-sub">On the charge.</p>
+            </div>
+            <div class="collection-buttons">
+                <a href="#" class="btn-primary">Shop now &nbsp;→</a>
+                <a href="#" class="btn-secondary">Explore more</a>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-   <!-- TRENDING SECTION -->
-<section class="trending-section">
-    <div class="section-header">
-        <h3>TRENDING</h3>
-        <a href="#" class="shop-link">Shop now →</a>
-    </div>
-
-    <div class="slider-wrapper">
-        <button class="slider-btn prev" onclick="slide('trending-grid', -1)">&#8592;</button>
-
-        <div class="product-grid" id="trending-grid" onscroll="updateScrollbar('trending-grid', 'trending-thumb')">
-
-            <!-- Product 1 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <button class="wishlist-btn" onclick="toggleWishlist(this)">
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M6.7206 6H11.7071L16 10.2929L20.2929 6H25.2794L29.6328 13.0743L16 26.7071L2.36719 13.0743L6.7206 6ZM7.2794 7L3.63281 12.9257L16 25.2929L28.3672 12.9257L24.7206 7H20.7071L16 11.7071L11.2929 7H7.2794Z" fill="black"></path>
-                        </svg>
-                    </button>
-                    <img src="images\SAMBA_OG_SHOES_Beige_KI6669_00_plp_standard.avif" alt="Samba OG Shoes">
-                </div>
-                <div class="product-info">
-                    <p class="price">CHF 150</p>
-                    <h4>SAMBA OG SHOES</h4>
-                    <p class="category">Originals</p>
-                </div>
-            </div>
-
-            <!-- Product 2 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <button class="wishlist-btn" onclick="toggleWishlist(this)">
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M6.7206 6H11.7071L16 10.2929L20.2929 6H25.2794L29.6328 13.0743L16 26.7071L2.36719 13.0743L6.7206 6ZM7.2794 7L3.63281 12.9257L16 25.2929L28.3672 12.9257L24.7206 7H20.7071L16 11.7071L11.2929 7H7.2794Z" fill="black"></path>
-                        </svg>
-                    </button>
-                    <img src="images\Leopard_Print_Handball_Spezial_Shoes_Beige_KI6678_00_plp_standard.avif" alt="Leopard Print Handball Spezial Shoes">
-                </div>
-                <div class="product-info">
-                    <p class="price">CHF 140</p>
-                    <h4>Leopard Print Handball Spezial Shoes</h4>
-                    <p class="category">Originals</p>
-                </div>
-            </div>
-
-            <!-- Product 3 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <button class="wishlist-btn" onclick="toggleWishlist(this)">
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M6.7206 6H11.7071L16 10.2929L20.2929 6H25.2794L29.6328 13.0743L16 26.7071L2.36719 13.0743L6.7206 6ZM7.2794 7L3.63281 12.9257L16 25.2929L28.3672 12.9257L24.7206 7H20.7071L16 11.7071L11.2929 7H7.2794Z" fill="black"></path>
-                        </svg>
-                    </button>
-                    <img src="images\Samba_OG_Shoes_Brown_JI2734_00_plp_standard.avif" alt="Samba OG Shoes">
-                </div>
-                <div class="product-info">
-                    <p class="price">CHF 150</p>
-                    <h4>Samba OG Shoes</h4>
-                    <p class="category">Originals</p>
-                </div>
-            </div>
-
-            <!-- Product 4 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <button class="wishlist-btn" onclick="toggleWishlist(this)">
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M6.7206 6H11.7071L16 10.2929L20.2929 6H25.2794L29.6328 13.0743L16 26.7071L2.36719 13.0743L6.7206 6ZM7.2794 7L3.63281 12.9257L16 25.2929L28.3672 12.9257L24.7206 7H20.7071L16 11.7071L11.2929 7H7.2794Z" fill="black"></path>
-                        </svg>
-                    </button>
-                    <img src="images\Sl72_OG_Shoes_Black_JR1639_00_plp_standard.avif" alt="SL72 OG Shoes">
-                </div>
-                <div class="product-info">
-                    <p class="price">CHF 130</p>
-                    <h4>SI72 OG Shoes</h4>
-                    <p class="category">Originals</p>
-                </div>
-            </div>
-
-            <!-- Product 5 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <button class="wishlist-btn" onclick="toggleWishlist(this)">
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M6.7206 6H11.7071L16 10.2929L20.2929 6H25.2794L29.6328 13.0743L16 26.7071L2.36719 13.0743L6.7206 6ZM7.2794 7L3.63281 12.9257L16 25.2929L28.3672 12.9257L24.7206 7H20.7071L16 11.7071L11.2929 7H7.2794Z" fill="black"></path>
-                        </svg>
-                    </button>
-                    <img src="images\HANDBALL_SPEZIAL_LOAFER_SHOES_Beige_KJ0639_00_plp_standard.avif" alt="Handball Spezial">
-                </div>
-                <div class="product-info">
-                    <p class="price">CHF 140</p>
-                    <h4>HANDBALL SPEZIAL</h4>
-                    <p class="category">Originals</p>
-                </div>
-            </div>
-
-        </div>
-
-        <button class="slider-btn next" onclick="slide('trending-grid', 1)">&#8594;</button>
-    </div>
-
-     <div class="slider-scrollbar">
-        <div class="scrollbar-track" id="trending-track" onclick="trackClick(event, 'trending-grid', 'trending-thumb')">
-            <div class="scrollbar-thumb" id="trending-thumb"></div>
-        </div>
-    </div>
-
-</section>
-   <!-- UCL PROMO SECTION -->
-<section class="ucl-promo">
-
-    <!-- Replace with your video: -->
-    <video autoplay muted loop playsinline>
-        <source src="images\global_ucl_budapest_oslo_finals_omb_football_ss26_launch_hp_ucl_budapest_banner_hero_1_d_8e013cb936.mp4" type="video/mp4">
-    </video>
-
-    <div class="ucl-overlay">
-        <h3>UCL OFFICIAL MATCH BALL BUDAPEST</h3>
-        <p>Shoot for the stars with the new Budapest Pro Ball.</p>
-        <a href="#" class="ucl-shop-btn">Shop now &nbsp;&#8594;</a>
-    </div>
-
-</section>
-
-    <!-- WINTER SPORTS SECTION -->
-<section class="winter-sports">
-    <div class="sports-slider-wrapper">
-
-        <button class="sports-slider-btn prev" onclick="slideS('sports-grid', -1)">&#8592;</button>
-
-        <div class="sports-grid" id="sports-grid">
-
-            <!-- Card 1 -->
-            <div class="sport-card">
-                <div class="sport-image">
-                    <img src="images\global_ss26_winter_olympics_mico_q1_outdoor_ss26_launch_hp_card_teaser_d_dfe2efee77.avif" alt="Winter in Motion">
-                    <!-- no label on this one -->
-                </div>
-                <div class="sport-info">
-                    <h3>WINTER IN MOTION</h3>
-                    <p>Be inspired by the passion of the pros.</p>
-                    <a href="#" class="shop-now-btn">Shop now</a>
-                </div>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="sport-card">
-                <div class="sport-image">
-                    <img src="images\global_spsp_tennis_barricade_drop_12_tennis_ss26_launch_hp_drop_2_card_teaser_d_62c99fcff9.avif" alt="Barricade">
-                </div>
-                <div class="sport-info">
-                    <h3>Control the court.</h3>
-                    <p>An icon reimagined for ultimate control.</p>
-                    <a href="#" class="shop-now-btn">Shop now</a>
-                </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="sport-card">
-                <div class="sport-image">
-                    <img src="images\global_ss26_supernova_running_ss26_launch_hp_clp_rise_dual_gender_card_teaser_d_62c6a2e5ea.avif" alt="Supernova Rise 3">
-                    <!-- no label -->
-                </div>
-                <div class="sport-info">
-                    <h3>Supernova Rise 3</h3>
-                    <p>For your daily comfy runs.</p>
-                    <a href="#" class="shop-now-btn">Shop now</a>
-                </div>
-            </div>
-
-            <!-- Card 4 -->
-            <div class="sport-card">
-                <div class="sport-image">
-                    <img src="images\global_willy_chavarria_allstar_originals_ss26_launch_ct_card_teaser_d_034d74fcba.avif" alt="adidas Originals x Willy Chavarria">
-                    <!-- no label -->
-                </div>
-                <div class="sport-info">
-                    <h3>adidas Originals x Willy Chavarria</h3>
-                    <p>A collaboration of sport, culture, and community.</p>
-                    <a href="#" class="shop-now-btn">Shop now</a>
-                </div>
-            </div>
-
-            <!-- Card 5 -->
-            <div class="sport-card">
-                <div class="sport-image">
-                    <img src="images\global_ss26_rugby_rugby_ss26_launch_hp_card_teaser_d_4c920d10f7.avif" alt="Flashes of brilliance">
-                    
-                </div>
-                <div class="sport-info">
-                    <h3>Flashes of brilliance.</h3>
-                    <p>New boot pack. Full flair on the pitch.</p>
-                    <a href="#" class="shop-now-btn">Shop now</a>
-                </div>
-            </div>
-
-        </div>
-
-        <button class="sports-slider-btn next" onclick="slideS('sports-grid', 1)">&#8594;</button>
-
-    </div>
-</section>
-
-    <!-- MEMBERS EXCLUSIVES SECTION -->
-    <section class="members-section">
+    <!-- TRENDING -->
+    <section class="trending-section">
         <div class="section-header">
-            <h2>Members Exclusives</h2>
-            <div class="sub-nav">
-                <a href="#" class="active">New Arrivals</a>
-                <a href="#">Coming Soon</a>
-                <a href="#" class="see-all">See all</a>
-            </div>
+            <h3>TRENDING</h3>
+            <a href="#" class="shop-link">Shop now →</a>
         </div>
-        
-        <div class="product-grid">
-            <!-- Product 1 -->
-            <div class="product-card">
-                <div class="product-image" style="background-color: #f5f5f5; height: 200px;"></div>
-                <div class="product-info">
-                    <h4>Adidas X Entire Studios D4T Training Tank</h4>
-                    <p class="price">CHF 80</p>
-                    <p class="category">Performance</p>
+
+        <div class="slider-wrapper">
+            <button class="slider-btn prev" onclick="slide('trending-grid', -1)">&#8592;</button>
+
+            <div class="product-grid" id="trending-grid" onscroll="updateScrollbar('trending-grid', 'trending-thumb')">
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <button class="wishlist-btn" onclick="toggleWishlist(this)">
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M6.7206 6H11.7071L16 10.2929L20.2929 6H25.2794L29.6328 13.0743L16 26.7071L2.36719 13.0743L6.7206 6ZM7.2794 7L3.63281 12.9257L16 25.2929L28.3672 12.9257L24.7206 7H20.7071L16 11.7071L11.2929 7H7.2794Z" fill="black"></path></svg>
+                        </button>
+                        <img src="images/SAMBA_OG_SHOES_Beige_KI6669_00_plp_standard.avif" alt="Samba OG Shoes">
+                    </div>
+                    <div class="product-info">
+                        <p class="price">CHF 150</p>
+                        <h4>SAMBA OG SHOES</h4>
+                        <p class="category">Originals</p>
+                    </div>
                 </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <button class="wishlist-btn" onclick="toggleWishlist(this)">
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M6.7206 6H11.7071L16 10.2929L20.2929 6H25.2794L29.6328 13.0743L16 26.7071L2.36719 13.0743L6.7206 6ZM7.2794 7L3.63281 12.9257L16 25.2929L28.3672 12.9257L24.7206 7H20.7071L16 11.7071L11.2929 7H7.2794Z" fill="black"></path></svg>
+                        </button>
+                        <img src="images/Leopard_Print_Handball_Spezial_Shoes_Beige_KI6678_00_plp_standard.avif" alt="Leopard Print Handball Spezial Shoes">
+                    </div>
+                    <div class="product-info">
+                        <p class="price">CHF 140</p>
+                        <h4>Leopard Print Handball Spezial Shoes</h4>
+                        <p class="category">Originals</p>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <button class="wishlist-btn" onclick="toggleWishlist(this)">
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M6.7206 6H11.7071L16 10.2929L20.2929 6H25.2794L29.6328 13.0743L16 26.7071L2.36719 13.0743L6.7206 6ZM7.2794 7L3.63281 12.9257L16 25.2929L28.3672 12.9257L24.7206 7H20.7071L16 11.7071L11.2929 7H7.2794Z" fill="black"></path></svg>
+                        </button>
+                        <img src="images/Samba_OG_Shoes_Brown_JI2734_00_plp_standard.avif" alt="Samba OG Shoes">
+                    </div>
+                    <div class="product-info">
+                        <p class="price">CHF 150</p>
+                        <h4>Samba OG Shoes</h4>
+                        <p class="category">Originals</p>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <button class="wishlist-btn" onclick="toggleWishlist(this)">
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M6.7206 6H11.7071L16 10.2929L20.2929 6H25.2794L29.6328 13.0743L16 26.7071L2.36719 13.0743L6.7206 6ZM7.2794 7L3.63281 12.9257L16 25.2929L28.3672 12.9257L24.7206 7H20.7071L16 11.7071L11.2929 7H7.2794Z" fill="black"></path></svg>
+                        </button>
+                        <img src="images/Sl72_OG_Shoes_Black_JR1639_00_plp_standard.avif" alt="SL72 OG Shoes">
+                    </div>
+                    <div class="product-info">
+                        <p class="price">CHF 130</p>
+                        <h4>SI72 OG Shoes</h4>
+                        <p class="category">Originals</p>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <button class="wishlist-btn" onclick="toggleWishlist(this)">
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M6.7206 6H11.7071L16 10.2929L20.2929 6H25.2794L29.6328 13.0743L16 26.7071L2.36719 13.0743L6.7206 6ZM7.2794 7L3.63281 12.9257L16 25.2929L28.3672 12.9257L24.7206 7H20.7071L16 11.7071L11.2929 7H7.2794Z" fill="black"></path></svg>
+                        </button>
+                        <img src="images/HANDBALL_SPEZIAL_LOAFER_SHOES_Beige_KJ0639_00_plp_standard.avif" alt="Handball Spezial">
+                    </div>
+                    <div class="product-info">
+                        <p class="price">CHF 140</p>
+                        <h4>HANDBALL SPEZIAL</h4>
+                        <p class="category">Originals</p>
+                    </div>
+                </div>
+
             </div>
-            
-            <!-- Product 2 -->
-            <div class="product-card">
-                <div class="product-image" style="background-color: #f5f5f5; height: 200px;"></div>
-                <div class="product-info">
-                    <h4>SUPERSTAR II Shoes</h4>
-                    <p class="price">CHF 170</p>
-                    <p class="category">Originals</p>
-                </div>
-            </div>
-            
-            <!-- Product 3 -->
-            <div class="product-card">
-                <div class="product-image" style="background-color: #f5f5f5; height: 200px;"></div>
-                <div class="product-info">
-                    <h4>SUPERSTAR II Shoes</h4>
-                    <p class="price">CHF 170</p>
-                    <p class="category">Originals</p>
-                </div>
-            </div>
-            
-            <!-- Product 4 -->
-            <div class="product-card">
-                <div class="product-image" style="background-color: #f5f5f5; height: 200px;"></div>
-                <div class="product-info">
-                    <h4>Adidas X Entire Studios Lightblaze POD</h4>
-                    <p class="price">CHF 230</p>
-                    <p class="category">Sportswear</p>
-                </div>
-            </div>
-            
-            <!-- Product 5 -->
-            <div class="product-card">
-                <div class="product-image" style="background-color: #f5f5f5; height: 200px;"></div>
-                <div class="product-info">
-                    <h4>Adidas X Entire Studios Uniform Long Sleeve T-Shirt</h4>
-                    <p class="price">CHF 110</p>
-                    <p class="category">Sportswear</p>
-                </div>
+
+            <button class="slider-btn next" onclick="slide('trending-grid', 1)">&#8594;</button>
+        </div>
+
+        <div class="slider-scrollbar">
+            <div class="scrollbar-track" id="trending-track" onclick="trackClick(event, 'trending-grid', 'trending-thumb')">
+                <div class="scrollbar-thumb" id="trending-thumb"></div>
             </div>
         </div>
     </section>
 
-    <!-- DISCOVER SECTION -->
+    <!-- UCL PROMO -->
+    <section class="ucl-promo">
+        <video autoplay muted loop playsinline>
+            <source src="images/global_ucl_budapest_oslo_finals_omb_football_ss26_launch_hp_ucl_budapest_banner_hero_1_d_8e013cb936.mp4" type="video/mp4">
+        </video>
+        <div class="ucl-overlay">
+            <h3>UCL OFFICIAL MATCH BALL BUDAPEST</h3>
+            <p>Shoot for the stars with the new Budapest Pro Ball.</p>
+            <a href="#" class="ucl-shop-btn">Shop now &nbsp;&#8594;</a>
+        </div>
+    </section>
+
+    <!-- SPORTS CARDS -->
+    <section class="winter-sports">
+        <div class="sports-slider-wrapper">
+            <button class="sports-slider-btn prev" onclick="slideS('sports-grid', -1)">&#8592;</button>
+
+            <div class="sports-grid" id="sports-grid">
+
+                <div class="sport-card">
+                    <div class="sport-image">
+                        <img src="images/global_ss26_winter_olympics_mico_q1_outdoor_ss26_launch_hp_card_teaser_d_dfe2efee77.avif" alt="Winter in Motion">
+                    </div>
+                    <div class="sport-info">
+                        <h3>WINTER IN MOTION</h3>
+                        <p>Be inspired by the passion of the pros.</p>
+                        <a href="#" class="shop-now-btn">Shop now</a>
+                    </div>
+                </div>
+
+                <div class="sport-card">
+                    <div class="sport-image">
+                        <img src="images/global_spsp_tennis_barricade_drop_12_tennis_ss26_launch_hp_drop_2_card_teaser_d_62c99fcff9.avif" alt="Barricade">
+                    </div>
+                    <div class="sport-info">
+                        <h3>Control the court.</h3>
+                        <p>An icon reimagined for ultimate control.</p>
+                        <a href="#" class="shop-now-btn">Shop now</a>
+                    </div>
+                </div>
+
+                <div class="sport-card">
+                    <div class="sport-image">
+                        <img src="images/global_ss26_supernova_running_ss26_launch_hp_clp_rise_dual_gender_card_teaser_d_62c6a2e5ea.avif" alt="Supernova Rise 3">
+                    </div>
+                    <div class="sport-info">
+                        <h3>Supernova Rise 3</h3>
+                        <p>For your daily comfy runs.</p>
+                        <a href="#" class="shop-now-btn">Shop now</a>
+                    </div>
+                </div>
+
+                <div class="sport-card">
+                    <div class="sport-image">
+                        <img src="images/global_willy_chavarria_allstar_originals_ss26_launch_ct_card_teaser_d_034d74fcba.avif" alt="adidas Originals x Willy Chavarria">
+                    </div>
+                    <div class="sport-info">
+                        <h3>adidas Originals x Willy Chavarria</h3>
+                        <p>A collaboration of sport, culture, and community.</p>
+                        <a href="#" class="shop-now-btn">Shop now</a>
+                    </div>
+                </div>
+
+                <div class="sport-card">
+                    <div class="sport-image">
+                        <img src="images/global_ss26_rugby_rugby_ss26_launch_hp_card_teaser_d_4c920d10f7.avif" alt="Flashes of brilliance">
+                    </div>
+                    <div class="sport-info">
+                        <h3>Flashes of brilliance.</h3>
+                        <p>New boot pack. Full flair on the pitch.</p>
+                        <a href="#" class="shop-now-btn">Shop now</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="sports-slider-btn next" onclick="slideS('sports-grid', 1)">&#8594;</button>
+        </div>
+    </section>
+
+    <!-- DISCOVER NEW -->
     <section class="discover-section">
-        <h2>Discover New</h2>
+        <h2>DISCOVER NEW</h2>
         <div class="discover-grid">
+
             <div class="discover-card">
-                <div class="discover-image" style="background-color: #e0e0e0; height: 180px;"></div>
-                <h4>Gym & Training</h4>
+                <img src="images/Position1_600x900_global_optime_training_fw25_launch_hp_mglp_navigation_card_teaser_m_Copy_2_f27edd56ea.avif" alt="Gym & Training">
+                <span class="discover-label">Gym &amp; Training</span>
             </div>
+
             <div class="discover-card">
-                <div class="discover-image" style="background-color: #e0e0e0; height: 180px;"></div>
-                <h4>Winter Sports</h4>
+                <img src="images/Position2_Outdoor_600x900_H24448_FW_25_Terrex_Skychaser_Xperior_WJ_WOMENS_LOOK_2_122_1334216_27f3c12ca5.avif" alt="Winter Sports">
+                <span class="discover-label">Winter Sports</span>
             </div>
+
             <div class="discover-card">
-                <div class="discover-image" style="background-color: #e0e0e0; height: 180px;"></div>
-                <h4>Terrex Shoes</h4>
+                <img src="images/Position3_Trail_600x900_H24618_SS_26_CCM_OUTDOOR_HIKE_EASTRAIL_JR_9425_Male_1720_1372915_Copy_2_061c0ca4c3.avif" alt="Terrex Shoes">
+                <span class="discover-label">Terrex Shoes</span>
             </div>
+
             <div class="discover-card">
-                <div class="discover-image" style="background-color: #e0e0e0; height: 180px;"></div>
-                <h4>Outdoor Accessories</h4>
+                <img src="images/Position4_Outdoor_Accessories_600x900_H24448_FW_25_Terrex_Skychaser_Xperior_Location_5_LEIRARFOSS_004598_1334029_copy_04b74e70a0.avif" alt="Outdoor Accessories">
+                <span class="discover-label">Outdoor Accessories</span>
             </div>
+
             <div class="discover-card">
-                <div class="discover-image" style="background-color: #e0e0e0; height: 180px;"></div>
-                <h4>Indoor Sports</h4>
+                <img src="images/Position5_600_900_FW_24_CCM_SPSP_INDOOR_IF_9262_05_9x16_Copy_2_9eae0c08bf.avif" alt="Indoor Sports">
+                <span class="discover-label">Indoor Sports</span>
             </div>
+
             <div class="discover-card">
-                <div class="discover-image" style="background-color: #e0e0e0; height: 180px;"></div>
-                <h4>Training Accessories</h4>
+                <img src="images/Position6_Training_Accessories_600x900_Tiro_Washkit_Bag_2_Copy_2_b62e39bb7f.avif" alt="Training Accessories">
+                <span class="discover-label">Training Accessories</span>
             </div>
+
         </div>
     </section>
 
-
-    <!-- FOOTER LINKS SECTION -->
+    <!-- FOOTER -->
     <footer class="main-footer">
         <div class="footer-grid">
             <div class="footer-col">
@@ -454,7 +360,6 @@
                     <li><a href="#">Gym Training Clothes</a></li>
                 </ul>
             </div>
-            
             <div class="footer-col">
                 <h4>STREET ICONS</h4>
                 <ul>
@@ -464,7 +369,6 @@
                     <li><a href="#">Campus</a></li>
                 </ul>
             </div>
-            
             <div class="footer-col">
                 <h4>EVERYDAY ESSENTIALS</h4>
                 <ul>
@@ -474,7 +378,6 @@
                     <li><a href="#">Leggings</a></li>
                 </ul>
             </div>
-            
             <div class="footer-col">
                 <h4>TECH INTEGRATED</h4>
                 <ul>
@@ -486,20 +389,17 @@
             </div>
         </div>
 
-        <!-- BRAND STORY -->
         <div class="brand-story">
             <h3>ADIDAS SPORTS SHOP FOR PERFORMANCE, STYLE & INNOVATION – SINCE 1949</h3>
             <p>Sport keeps us fit. Keeps you mindful. Brings us together. Through sport, we have the power to change lives—through stories of inspiring athletes, innovative technology, and by helping you get up and move.</p>
-            <p>Find high-performance activewear and sportswear built with the latest technology to help you push your limits. Whether you're a runner, a basketball player, a footballer, or someone who just loves to stay active, our sports shop is your home. We're here to help you train harder, run faster, and go further, with products that keep up with your movement and support your goals.</p>
+            <p>Find high-performance activewear and sportswear built with the latest technology to help you push your limits. Whether you're a runner, a basketball player, a footballer, or someone who just loves to stay active, our sports shop is your home.</p>
         </div>
 
-        <!-- MEMBERSHIP CTA -->
         <div class="membership-cta">
             <h3>BECOME A MEMBER & GET 10% OFF*</h3>
             <a href="#" class="btn-primary">SIGN UP FOR FREE</a>
         </div>
 
-        <!-- MEGA FOOTER -->
         <div class="mega-footer">
             <div class="footer-col">
                 <h4>PRODUCTS</h4>
@@ -512,7 +412,6 @@
                     <li><a href="#">Outlet</a></li>
                 </ul>
             </div>
-            
             <div class="footer-col">
                 <h4>SPORTS</h4>
                 <ul>
@@ -526,7 +425,6 @@
                     <li><a href="#">Tennis</a></li>
                 </ul>
             </div>
-            
             <div class="footer-col">
                 <h4>COLLECTIONS</h4>
                 <ul>
@@ -540,7 +438,6 @@
                     <li><a href="#">adicolor</a></li>
                 </ul>
             </div>
-            
             <div class="footer-col">
                 <h4>OUR WORLD</h4>
                 <ul>
@@ -553,7 +450,6 @@
                     <li><a href="#">Training Equipment</a></li>
                 </ul>
             </div>
-            
             <div class="footer-col">
                 <h4>SUPPORT</h4>
                 <ul>
@@ -569,7 +465,6 @@
                     <li><a href="#">Imprint</a></li>
                 </ul>
             </div>
-            
             <div class="footer-col">
                 <h4>COMPANY INFO</h4>
                 <ul>
@@ -584,7 +479,6 @@
                     <li><a href="#">adiclub</a></li>
                 </ul>
             </div>
-            
             <div class="footer-col">
                 <h4>FOLLOW US</h4>
                 <div class="social-icons">
@@ -592,7 +486,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="footer-bottom">
             <div class="legal-links">
                 <a href="#">Cookie Settings</a>
@@ -604,5 +498,6 @@
             </div>
         </div>
     </footer>
+
 </body>
 </html>

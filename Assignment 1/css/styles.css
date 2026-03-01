@@ -25,18 +25,6 @@ body {
     text-align: center;
 }
 
-@media (max-width: 768px) {
-    .promo-bar {
-        font-size: 14px;
-    }
-}
-
-@media (max-width: 480px) {
-    .promo-bar {
-        font-size: 12px;
-        padding: 0.4em 0;
-    }
-}
 
 .promo-content {
     display: inline-flex;
@@ -98,7 +86,7 @@ body {
     align-items: center;
     padding: 15px 40px;
     background-color: #fff;
-    border-top: 1px solid #f0f0f0;
+    
 }
 
 .logo svg {
@@ -220,14 +208,12 @@ body {
 }
 
 /* HERO SECTION */
-/* HERO SECTION - Full screen with overlay */
 #hero-section {
-    position: relative;        /* For absolute positioning of overlay */
+    position: relative;
     width: 100%;
-    height: 80vh;              /* 80% of viewport height - adjust as needed */
-    min-height: 600px;         /* Minimum height for smaller screens */
-    max-height: 900px;         /* Maximum height for very large screens */
-    overflow: hidden;          /* Prevents image spillover */
+    height: 85vh;
+    min-height: 500px;
+    overflow: hidden;
 }
 
 .hero-image {
@@ -238,101 +224,90 @@ body {
 .hero-image img {
     width: 100%;
     height: 100%;
-    object-fit: cover;         /* Image covers entire area without distortion */
+    object-fit: cover;
+    object-position: center top;
     display: block;
 }
 
-/* TEXT OVERLAY - Positioned on top of image */
-/* TEXT OVERLAY - Positioned at bottom-left of image */
+/* TEXT OVERLAY */
 .hero-overlay {
     position: absolute;
-    bottom: 10%;                 /* Position at bottom */
-    left: 5%;                    /* Position at left */
-    color: white;
+    bottom: 8%;
+    left: 5%;
     z-index: 10;
-    max-width: 600px;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-/* First row - Revolut and F1 TEAM side by side */
-.collection-logos:first-of-type {
+    max-width: 580px;
     display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 8px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
 }
 
-.collection-logos:first-of-type span:first-child {
-    font-size: 22px;
+/* Bold label — "ADIDAS X AUDI REVOLUT F1 TEAM" */
+.hero-tag {
+    display: inline-block;
+    background-color: #fff;
+    color: #000;
+    font-size: 15px;
     font-weight: 700;
+    letter-spacing: 1px;
+    padding: 6px 14px;
+    text-transform: uppercase;
 }
 
-.collection-logos:first-of-type span:last-child {
-    font-size: 22px;
-    font-weight: 700;
-    background-color: rgba(255, 255, 255, 0.2);
-    padding: 4px 15px;
-    border-radius: 30px;
+/* Single white box containing both subtitle lines */
+.hero-title-box {
+    background-color: #fff;
+    color: #000;
+    display: inline-block;
+    padding: 4px 8px;
+    width: fit-content;
+    margin-bottom: 14px;
+}
+.hero-sub {
+    font-size: 12px;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
 }
 
-/* Second row - Revolut and ADIDAS X AUDI REVOLUT F1 TEAM */
-.collection-logos.second {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 15px;
-}
-
-.collection-logos.second span:first-child {
-    font-size: 18px;
-    font-weight: 600;
-}
-
-.collection-logos.second span:last-child {
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    opacity: 0.9;
-}
-
-/* Third row - Collection title */
-.collection-title {
-    font-size: 28px;
-    font-weight: 600;
-    line-height: 1.3;
-    margin-bottom: 20px;
-    max-width: 500px;
-    display: block;
-}
-
-/* Fourth row - Buttons */
+/* Buttons */
 .collection-buttons {
     display: flex;
-    gap: 15px;
+    gap: 12px;
 }
 
 .btn-primary {
-    padding: 12px 28px;
-    background: white;
-    color: black;
+    padding: 13px 28px;
+    background: #fff;
+    color: #000;
     border: none;
-    font-weight: 600;
-    font-size: 15px;
+    font-weight: 700;
+    font-size: 14px;
     text-decoration: none;
     display: inline-block;
+    letter-spacing: 0.3px;
+}
+
+.btn-primary:hover {
+    background-color: #e0e0e0;
 }
 
 .btn-secondary {
-    padding: 12px 28px;
+    padding: 13px 28px;
     background: transparent;
-    color: white;
-    border: 2px solid white;
-    font-weight: 600;
-    font-size: 15px;
+    color: #fff;
+    border: 2px solid #fff;
+    font-weight: 700;
+    font-size: 14px;
     text-decoration: none;
     display: inline-block;
+    letter-spacing: 0.3px;
 }
 
+.btn-secondary:hover {
+    background-color: rgba(255,255,255,0.15);
+}
 /* Trending Section */
 .trending-section {
     padding: 40px;
@@ -683,32 +658,53 @@ body {
 /* Discover Section */
 .discover-section {
     padding: 40px;
-    background-color: #f8f8f8;
+    background-color: #fff;
 }
 
 .discover-section h2 {
-    margin-bottom: 30px;
-    font-size: 24px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .discover-grid {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 400px);
+    gap: 4px;
 }
 
 .discover-card {
-    text-align: center;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
 }
 
-.discover-image {
+.discover-card img {
     width: 100%;
-    margin-bottom: 10px;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
 }
 
-.discover-card h4 {
-    font-size: 14px;
+.discover-card:hover img {
+    transform: scale(1.03);
+}
+
+/* Label at bottom-left of each image */
+.discover-label {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    background-color: #fff;
+    color: #000;
+    font-size: 13px;
     font-weight: 500;
+    padding: 6px 12px;
+    letter-spacing: 0.3px;
 }
 
 
@@ -824,56 +820,3 @@ body {
     color: #fff;
 }
 
-/* Responsive */
-@media (max-width: 1200px) {
-    .product-grid, .sports-grid, .discover-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-    
-    .mega-footer {
-        grid-template-columns: repeat(4, 1fr);
-    }
-}
-
-@media (max-width: 768px) {
-    .main-nav {
-        flex-direction: column;
-        gap: 20px;
-    }
-    
-    .menu {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    
-    #hero-section {
-        grid-template-columns: 1fr;
-    }
-    
-    .product-grid, .sports-grid, .discover-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .footer-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .mega-footer {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 480px) {
-    .product-grid, .sports-grid, .discover-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .utility-links {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    
-    .promo-messaging-container {
-        padding: 8px 15px;
-    }
-}

@@ -300,12 +300,15 @@ body {
     transition: transform 0.2s ease;
 }
 
-/* HERO */
+
 #hero-section {
     position: relative;
     width: 100%;
-    height: 85vh;
-    min-height: 500px;
+
+    /* 3:1 ratio so all three panels are fully visible on desktop */
+    height: clamp(340px, 33.33vw, 700px);
+    min-height: 0; /* remove the old 500px floor that forced cropping */
+
     overflow: hidden;
 }
 
@@ -315,7 +318,10 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 50% center;
+
+    /* Desktop: centred — all three panels fill width exactly */
+    object-position: center center;
+
     display: block;
 }
 
@@ -724,6 +730,7 @@ body {
     padding: 6px 12px;
     letter-spacing: 0.3px;
 }
+
 /* FOOTER STYLES (COMPLETE) */
 .main-footer {
     background-color: #000;
@@ -857,9 +864,7 @@ body {
     transition: color 0.2s ease;
 }
 
-.social-icons span:hover {
-    color: #fff;
-}
+.social-icons span:hover { color: #fff; }
 
 .footer-bottom {
     border-top: 1px solid #333;
@@ -881,11 +886,14 @@ body {
     transition: color 0.2s ease;
 }
 
-.legal-links a:hover {
-    color: #fff;
-}
+.legal-links a:hover { color: #fff; }
 
-/* TABLET — 1200px */
+
+/* ============================================================
+   TABLET — max-width: 75em (1200px)
+   General layout adjustments. Hero is NOT overridden here —
+   the base 33.33vw rule handles 1024px–1200px correctly.
+   ============================================================ */
 @media (max-width: 75em) {
     .mega-footer { grid-template-columns: repeat(4, 1fr); }
     .footer-grid { grid-template-columns: repeat(4, 1fr); }
@@ -899,10 +907,29 @@ body {
     .product-image { height: 200px; }
     .sport-image { height: 300px; }
     .ucl-promo { height: 500px; }
-    .hero-image img { object-position: 50% center; }
+
+    /* Hero: NO object-position override here so desktop centre stays intact.
+       Sizes between 1024px and 1200px still show all 3 panels via base rule. */
 }
 
-/* MOBILE — 768px */
+
+
+@media (min-width: 48em) and (max-width: 64em) {
+    #hero-section {
+        height: clamp(280px, 50vw, 480px);
+        min-height: 0;
+    }
+
+    .hero-image img {
+        object-position: 0% center; /* left-anchor → panels 1 & 2 */
+    }
+}
+
+
+/* ============================================================
+   MOBILE — max-width: 48em (768px)
+   Shows panel 1 (the two drivers on the left).
+   ============================================================ */
 @media (max-width: 48em) {
 
     body { overflow-x: hidden; }
@@ -930,7 +957,6 @@ body {
     }
 
     .menu { display: none; }
-
     .search-container { display: none; }
 
     .header-icons { gap: 14px; }
@@ -939,7 +965,7 @@ body {
         width: 20px;
         height: 20px;
     }
-    
+
     /* Promo */
     .promo-bar {
         font-size: 13px;
@@ -951,10 +977,16 @@ body {
     .promo-messaging-container { padding: 8px 16px 8px 16px; }
     .promo-icon { margin: 0; }
 
-    /* Hero */
+    /* ── HERO MOBILE ──
+       55vh gives a tall-ish hero that shows panel 1 cleanly.
+       object-position: 0% left-anchors the image. */
     #hero-section {
-        height: 55vh;
-        min-height: 300px;
+        height: 47vh;
+        min-height: 280px;
+    }
+
+    .hero-image img {
+        object-position: 0% center;
     }
 
     .hero-overlay {
@@ -969,12 +1001,12 @@ body {
         letter-spacing: 0.5px;
     }
 
-    .hero-title-box { 
+    .hero-title-box {
         padding: 4px 8px;
         margin-bottom: 12px;
     }
 
-    .hero-sub { 
+    .hero-sub {
         font-size: 12px;
         line-height: 1.4;
     }
@@ -983,10 +1015,6 @@ body {
     .btn-secondary {
         padding: 11px 18px;
         font-size: 13px;
-    }
-
-    .hero-image img {
-        object-position: 0% center;
     }
 
     /* Trending */
@@ -1000,7 +1028,7 @@ body {
     .product-info h4 { font-size: 12px; }
 
     /* UCL */
-    .ucl-promo { 
+    .ucl-promo {
         height: 300px;
         max-width: 100%;
     }
@@ -1012,9 +1040,7 @@ body {
     /* Sports */
     .winter-sports { padding: 24px 16px; }
     .sports-slider-wrapper { position: relative; }
-    .sport-card {
-        min-width: calc(90% - 4px);
-    }
+    .sport-card { min-width: calc(90% - 4px); }
 
     .sport-image {
         height: 380px;
@@ -1035,9 +1061,7 @@ body {
         margin-bottom: 8px;
     }
 
-    .sports-slider-btn {
-        display: none;
-    }
+    .sports-slider-btn { display: none; }
 
     /* Discover */
     .discover-section { padding: 24px 16px; }
@@ -1049,8 +1073,8 @@ body {
     }
 
     .discover-card img {
-        object-fit: cover;
-        object-position: center center;
+        object-fit: contain;
+        object-position: center;
     }
 
     .discover-label {
@@ -1059,9 +1083,7 @@ body {
     }
 
     /* Footer */
-    .main-footer { 
-        padding: 30px 16px 20px; 
-    }
+    .main-footer { padding: 30px 16px 20px; }
 
     .footer-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1074,16 +1096,14 @@ body {
         margin-bottom: 10px;
     }
 
-    .footer-col a {
-        font-size: 12px;
-    }
+    .footer-col a { font-size: 12px; }
 
     .brand-story {
         padding: 30px 0;
         margin-bottom: 30px;
     }
 
-    .brand-story h3 { 
+    .brand-story h3 {
         font-size: 16px;
         margin-bottom: 12px;
     }
@@ -1102,7 +1122,7 @@ body {
         margin-left: 0;
     }
 
-    .membership-cta h3 { 
+    .membership-cta h3 {
         font-size: 16px;
         margin-bottom: 12px;
     }
@@ -1114,7 +1134,7 @@ body {
         font-size: 12px;
     }
 
-    .mega-footer { 
+    .mega-footer {
         grid-template-columns: repeat(3, 1fr);
         gap: 16px;
         margin-bottom: 30px;
@@ -1136,13 +1156,14 @@ body {
     .legal-links a { font-size: 11px; }
 }
 
-/* SMALL MOBILE — 480px */
+
+/* ============================================================
+   SMALL MOBILE — max-width: 30em (480px)
+   ============================================================ */
 @media (max-width: 30em) {
 
     /* Logo */
-    .logo svg {
-        width: 42px;
-    }
+    .logo svg { width: 42px; }
 
     .header-icons svg {
         width: 18px;
@@ -1152,10 +1173,29 @@ body {
     /* Promo bar */
     .promo-content span { font-size: 11px; }
 
-    /* Hero */
-    #hero-section { 
-        height: 45vh;
-        min-height: 250px;
+    /* ── HERO SMALL MOBILE ──
+       min(95vw, 45vh): near-square crop keeps panel 1 tightly
+       framed without awkward letterboxing on short screens. */
+     #hero-section {
+        width: 100%;
+        height: 130vw;     /* taller crop = less of panel 2 */
+        min-height: 320px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .hero-image {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .hero-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: left center;
+        display: block;
     }
 
     .hero-overlay {
@@ -1193,10 +1233,6 @@ body {
         font-size: 11px;
         width: 100%;
         text-align: center;
-    }
-
-    .hero-image img {
-        object-position: 0% center;
     }
 
     /* Trending */
@@ -1249,11 +1285,9 @@ body {
     }
 
     /* Footer */
-    .main-footer { 
-        padding: 24px 12px 16px;
-    }
+    .main-footer { padding: 24px 12px 16px; }
 
-    .footer-grid { 
+    .footer-grid {
         grid-template-columns: 1fr;
         gap: 14px;
         margin-bottom: 24px;
@@ -1269,9 +1303,7 @@ body {
         margin-bottom: 4px;
     }
 
-    .footer-col ul li {
-        margin-bottom: 4px;
-    }
+    .footer-col ul li { margin-bottom: 4px; }
 
     .brand-story {
         padding: 24px 0;
@@ -1309,13 +1341,13 @@ body {
         font-size: 11px;
     }
 
-    .mega-footer { 
+    .mega-footer {
         grid-template-columns: repeat(2, 1fr);
         gap: 14px;
         margin-bottom: 24px;
     }
 
-    .social-icons { 
+    .social-icons {
         gap: 10px;
         margin-top: 8px;
     }
@@ -1327,11 +1359,7 @@ body {
         margin-top: 12px;
     }
 
-    .legal-links {
-        gap: 8px;
-    }
+    .legal-links { gap: 8px; }
 
-    .legal-links a { 
-        font-size: 10px;
-    }
+    .legal-links a { font-size: 10px; }
 }

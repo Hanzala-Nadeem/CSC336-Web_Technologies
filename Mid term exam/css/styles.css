@@ -91,7 +91,7 @@ body {
 }
 
 /* Hamburger — hidden on desktop */
-.hamburger-btn {
+.MenuToggler {
     display: none;
     background: none;
     border: none;
@@ -889,11 +889,7 @@ body {
 .legal-links a:hover { color: #fff; }
 
 
-/* ============================================================
-   TABLET — max-width: 75em (1200px)
-   General layout adjustments. Hero is NOT overridden here —
-   the base 33.33vw rule handles 1024px–1200px correctly.
-   ============================================================ */
+
 @media (max-width: 75em) {
     .mega-footer { grid-template-columns: repeat(4, 1fr); }
     .footer-grid { grid-template-columns: repeat(4, 1fr); }
@@ -908,8 +904,6 @@ body {
     .sport-image { height: 300px; }
     .ucl-promo { height: 500px; }
 
-    /* Hero: NO object-position override here so desktop centre stays intact.
-       Sizes between 1024px and 1200px still show all 3 panels via base rule. */
 }
 
 
@@ -943,7 +937,7 @@ body {
         justify-content: space-between;
     }
 
-    .hamburger-btn { display: block; }
+    .MenuToggler { display: block; }
 
     .logo {
         position: absolute;
@@ -1362,4 +1356,35 @@ body {
     .legal-links { gap: 8px; }
 
     .legal-links a { font-size: 10px; }
+}
+
+/* QUICK VIEW BUTTON */
+.product-image .quick-view-btn {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    background: rgba(0,0,0,0.75);
+    color: #fff;
+    border: none;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.product-image:hover .quick-view-btn {
+    opacity: 1;
+}
+
+/* On mobile — always visible (no hover) */
+@media (max-width: 48em) {
+    .product-image .quick-view-btn {
+        opacity: 1;
+        font-size: 12px;
+        padding: 8px;
+    }
 }

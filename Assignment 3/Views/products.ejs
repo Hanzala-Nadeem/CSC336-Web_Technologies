@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= query.category && query.category !== 'All' ? query.category : 'All Products' %> | adidas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/products.css">
+</head>
+<body>
+
+    <%- include('partials/header') %>
+
+    <!-- PRODUCTS PAGE -->
+    <main class="products-page">
+
+        <!-- Breadcrumb -->
+        <div class="products-breadcrumb">
+            <a href="/" class="back-link">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Back
+            </a>
+            <span class="breadcrumb-divider">|</span>
+            <a href="/">Home</a>
+            <span class="breadcrumb-sep">/</span>
+            <span class="breadcrumb-current">Products</span>
+        </div>
+
+        <!-- Page Title -->
+        <div class="products-title">
+            <h1>
+                <%= query.category && query.category !== 'All' ? query.category.toUpperCase() : 'ALL PRODUCTS' %>
+                <span class="product-count">[<%= totalProducts %>]</span>
+            </h1>
+        </div>
+
+        <!-- Category Tabs + Filter Button -->
+        <div class="products-toolbar">
+            <div class="category-tabs">
+                <a href="/products" class="cat-tab <%= !query.category || query.category === 'All' ? 'active' : '' %>">All</a>
+                <% categories.forEach(function(cat) { %>
+                    <a href="/products?category=<%= cat %>" class="cat-tab <%= query.category === cat ? 'active' : '' %>"><%= cat %></a>
+                <% }); %>
+            </div>
+            <button class="filter-sort-btn" onclick="toggleFilterSidebar()">
+                Filter & Sort
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M6 12h12M9 18h6" stroke="black" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="products-search-wrapper">
+            <div class="products-search-bar">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M15.5 14H14.71L14.43 13.73C15.41 12.59 16 11.11 16 9.5C16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-0.59 4.23-1.57L14 14.71V15.5L19 20.49L20.49 19L15.5 14ZM9.5 14C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14Z" fill="#767677"/>
+                </svg>
+                <input type="text" id="productSearchInput" placeholder="Search products..." value="<%= query.search || '' %>" autocomplete="off">
+                <% if (query.search) { %>
+                    <a href="/products<%= query.category ? '?category=' + query.category : '' %>" class="search-clear">&times;</a>
+                <% } %>
+            </div>
+            <div class="search-suggestions" id="searchSuggestions"></div>
+        </div>
+
+        <!-- Applied Filters -->
+        <% if (query.search || (query.category && query.category !== 'All') || query.minPrice || query.maxPrice) { %>
+        <div class="applied-filters">
+            <span class="applied-label">Applied filters:</span>
+            <% if (query.category && query.category !== 'All') { %>
+                <a href="/products<%= query.search ? '?search=' + query.search : '' %>" class="filter-tag">&times; <%= query.category %></a>
+            <% } %>
+            <% if (query.search) { %>
+                <a href="/products<%= query.category ? '?category=' + query.category : '' %>" class="filter-tag">&times; "<%= query.search %>"</a>
+            <% } %>
+            <% if (query.minPrice || query.maxPrice) { %>
+                <span class="filter-tag">&times; $<%= query.minPrice || '0' %> – $<%= query.maxPrice || '∞' %></span>
+            <% } %>
+            <a href="/products" class="clear-all-link">Clear all</a>
+        </div>
+        <% } %>
+
+        <!-- Product Grid -->
+        <div class="container-fluid px-0">
+            <div class="row g-2 g-md-3">
+                <% if (products.length === 0) { %>
+                    <div class="col-12 no-results">
+                        <div class="no-results-content">
+                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none"><path d="M15.5 14H14.71L14.43 13.73C15.41 12.59 16 11.11 16 9.5C16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-0.59 4.23-1.57L14 14.71V15.5L19 20.49L20.49 19L15.5 14ZM9.5 14C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14Z" fill="#ccc"/></svg>
+                            <h3>No products found</h3>
+                            <p>Try adjusting your search or filters</p>
+                            <a href="/products" class="reset-btn">View all products</a>
+                        </div>
+                    </div>
+                <% } else { %>
+                    <% products.forEach(function(product) { %>
+                        <div class="col-6 col-md-4 col-lg-3">
+                            <div class="catalog-card" onclick="openQuickView('<%= product._id %>')">
+                                <div class="catalog-card-image">
+                                    <button class="wishlist-btn" onclick="event.stopPropagation(); toggleWishlist(this)">
+                                        <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M6.7206 6H11.7071L16 10.2929L20.2929 6H25.2794L29.6328 13.0743L16 26.7071L2.36719 13.0743L6.7206 6ZM7.2794 7L3.63281 12.9257L16 25.2929L28.3672 12.9257L24.7206 7H20.7071L16 11.7071L11.2929 7H7.2794Z" fill="black"></path></svg>
+                                    </button>
+                                    <img src="/<%= product.image %>" alt="<%= product.name %>" loading="lazy">
+                                </div>
+                                <div class="catalog-card-info">
+                                    <p class="catalog-price">$<%= product.price %></p>
+                                    <h4 class="catalog-name"><%= product.name %></h4>
+                                    <p class="catalog-category"><%= product.category %></p>
+                                    <div class="catalog-rating">
+                                        <% for (let i = 1; i <= 5; i++) { %>
+                                            <% if (i <= Math.floor(product.rating)) { %>
+                                                <span class="star filled">★</span>
+                                            <% } else if (i - 0.5 <= product.rating) { %>
+                                                <span class="star half">★</span>
+                                            <% } else { %>
+                                                <span class="star">☆</span>
+                                            <% } %>
+                                        <% } %>
+                                        <span class="rating-num"><%= product.rating %></span>
+                                    </div>
+                                    <% if (product.stock <= 0) { %>
+                                        <span class="stock-badge out">Out of Stock</span>
+                                    <% } else if (product.stock <= 20) { %>
+                                        <span class="stock-badge low">Only <%= product.stock %> left</span>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                <% } %>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <% if (totalPages > 1) { %>
+        <nav class="products-pagination">
+            <% 
+                // Build base URL preserving filters
+                let baseParams = [];
+                if (query.search) baseParams.push('search=' + query.search);
+                if (query.category) baseParams.push('category=' + query.category);
+                if (query.minPrice) baseParams.push('minPrice=' + query.minPrice);
+                if (query.maxPrice) baseParams.push('maxPrice=' + query.maxPrice);
+                if (query.sort) baseParams.push('sort=' + query.sort);
+                let baseUrl = '/products?' + baseParams.join('&') + (baseParams.length ? '&' : '');
+            %>
+
+            <a href="<%= baseUrl %>page=<%= currentPage - 1 %>" class="page-btn prev-btn <%= currentPage <= 1 ? 'disabled' : '' %>">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Previous
+            </a>
+
+            <div class="page-numbers">
+                <% for (let i = 1; i <= totalPages; i++) { %>
+                    <% if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) { %>
+                        <a href="<%= baseUrl %>page=<%= i %>" class="page-num <%= i === currentPage ? 'active' : '' %>"><%= i %></a>
+                    <% } else if (i === currentPage - 2 || i === currentPage + 2) { %>
+                        <span class="page-dots">...</span>
+                    <% } %>
+                <% } %>
+            </div>
+
+            <a href="<%= baseUrl %>page=<%= currentPage + 1 %>" class="page-btn next-btn <%= currentPage >= totalPages ? 'disabled' : '' %>">
+                Next
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+        </nav>
+        <% } %>
+
+    </main>
+
+    <!-- FILTER SIDEBAR -->
+    <div class="filter-backdrop" id="filterBackdrop" onclick="toggleFilterSidebar()"></div>
+    <aside class="filter-sidebar" id="filterSidebar">
+        <div class="filter-header">
+            <h3>FILTER & SORT</h3>
+            <div class="filter-header-actions">
+                <a href="/products" class="clear-all">Clear all</a>
+                <button class="filter-close-btn" onclick="toggleFilterSidebar()">&times;</button>
+            </div>
+        </div>
+
+        <form id="filterForm" action="/products" method="GET">
+            <!-- Keep search if active -->
+            <% if (query.search) { %>
+                <input type="hidden" name="search" value="<%= query.search %>">
+            <% } %>
+
+            <!-- Sort By -->
+            <div class="filter-section">
+                <button type="button" class="filter-section-toggle" onclick="toggleFilterSection(this)">
+                    <span>Sort by</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9L12 15L18 9" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <div class="filter-section-body open">
+                    <label class="filter-radio"><input type="radio" name="sort" value="newest" <%= query.sort === 'newest' || !query.sort ? 'checked' : '' %>> Newest</label>
+                    <label class="filter-radio"><input type="radio" name="sort" value="price_asc" <%= query.sort === 'price_asc' ? 'checked' : '' %>> Price (low – high)</label>
+                    <label class="filter-radio"><input type="radio" name="sort" value="price_desc" <%= query.sort === 'price_desc' ? 'checked' : '' %>> Price (high – low)</label>
+                    <label class="filter-radio"><input type="radio" name="sort" value="rating" <%= query.sort === 'rating' ? 'checked' : '' %>> Top Sellers</label>
+                </div>
+            </div>
+
+            <!-- Category -->
+            <div class="filter-section">
+                <button type="button" class="filter-section-toggle" onclick="toggleFilterSection(this)">
+                    <span>Category</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9L12 15L18 9" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <div class="filter-section-body open">
+                    <label class="filter-check"><input type="radio" name="category" value="All" <%= !query.category || query.category === 'All' ? 'checked' : '' %>> All Categories</label>
+                    <% categories.forEach(function(cat) { %>
+                        <label class="filter-check"><input type="radio" name="category" value="<%= cat %>" <%= query.category === cat ? 'checked' : '' %>> <%= cat %></label>
+                    <% }); %>
+                </div>
+            </div>
+
+            <!-- Price Range -->
+            <div class="filter-section">
+                <button type="button" class="filter-section-toggle" onclick="toggleFilterSection(this)">
+                    <span>Price Range</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9L12 15L18 9" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <div class="filter-section-body open">
+                    <div class="price-range-inputs">
+                        <div class="price-input-group">
+                            <label>Min $</label>
+                            <input type="number" name="minPrice" value="<%= query.minPrice || '' %>" placeholder="0" min="0">
+                        </div>
+                        <span class="price-dash">—</span>
+                        <div class="price-input-group">
+                            <label>Max $</label>
+                            <input type="number" name="maxPrice" value="<%= query.maxPrice || '' %>" placeholder="500" min="0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Show Items Button -->
+            <div class="filter-footer">
+                <span class="items-found"><%= totalProducts %> items found</span>
+                <button type="submit" class="show-items-btn">
+                    Show items
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+            </div>
+        </form>
+    </aside>
+
+    <!-- QUICK VIEW MODAL -->
+    <div class="quickview-backdrop" id="quickviewBackdrop" onclick="closeQuickView()"></div>
+    <div class="quickview-modal" id="quickviewModal">
+        <button class="quickview-close" onclick="closeQuickView()">&times;</button>
+        <div class="quickview-content">
+            <div class="quickview-image">
+                <img id="qv-image" src="" alt="">
+            </div>
+            <div class="quickview-details">
+                <p class="qv-category" id="qv-category"></p>
+                <h2 class="qv-name" id="qv-name"></h2>
+                <p class="qv-price" id="qv-price"></p>
+                <div class="qv-rating" id="qv-rating"></div>
+                <p class="qv-description" id="qv-description"></p>
+                <div class="qv-stock" id="qv-stock"></div>
+                <button class="qv-add-btn">ADD TO BAG</button>
+            </div>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/script.js"></script>
+</body>
+</html>

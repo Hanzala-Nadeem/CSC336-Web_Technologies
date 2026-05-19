@@ -1,0 +1,352 @@
+<!-- Sales Dashboard — uses layouts/main.ejs via express-ejs-layouts -->
+<!-- jQuery polling updates stats every 10 seconds -->
+
+<style>
+    .sales-dashboard {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 30px 20px 60px;
+    }
+    .sales-dashboard h1 {
+        font-family: 'AdihausDIN', Arial, sans-serif;
+        font-size: 2rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 4px;
+    }
+    .sales-subtitle {
+        color: #767677;
+        font-size: 0.9rem;
+        margin-bottom: 30px;
+    }
+    .live-indicator {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #00a651;
+        margin-left: 16px;
+    }
+    .live-dot {
+        width: 8px;
+        height: 8px;
+        background: #00a651;
+        border-radius: 50%;
+        animation: pulse-dot 2s infinite;
+    }
+    @keyframes pulse-dot {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.5; transform: scale(1.3); }
+    }
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+        margin-bottom: 32px;
+    }
+    .stat-card {
+        background: #fff;
+        border: 1px solid #e5e5e5;
+        padding: 24px;
+        position: relative;
+        transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .stat-card:hover {
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        transform: translateY(-2px);
+    }
+    .stat-card .stat-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        margin-bottom: 14px;
+    }
+    .stat-card .stat-value {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+        font-family: 'AdihausDIN', Arial, sans-serif;
+    }
+    .stat-card .stat-label {
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: #767677;
+    }
+    .icon-revenue { background: #000; color: #fff; }
+    .icon-orders { background: #1a1a2e; color: #fff; }
+    .icon-pending { background: #f0ad4e; color: #fff; }
+    .icon-shipped { background: #0275d8; color: #fff; }
+    .icon-delivered { background: #00a651; color: #fff; }
+    .icon-cancelled { background: #d9534f; color: #fff; }
+    .icon-avg { background: #6610f2; color: #fff; }
+
+    .dashboard-section {
+        margin-bottom: 32px;
+    }
+    .dashboard-section h2 {
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 16px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #000;
+    }
+
+    .top-product-card {
+        background: #fff;
+        border: 1px solid #e5e5e5;
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        padding: 24px;
+    }
+    .top-product-card img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 4px;
+        background: #f5f5f5;
+    }
+    .top-product-info h3 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+    .top-product-info .tp-stat {
+        font-size: 0.85rem;
+        color: #767677;
+        margin-bottom: 4px;
+    }
+    .top-product-info .tp-stat strong {
+        color: #000;
+    }
+
+    .orders-table {
+        background: #fff;
+        border: 1px solid #e5e5e5;
+        overflow-x: auto;
+    }
+    .orders-table table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.85rem;
+    }
+    .orders-table thead {
+        background: #f5f5f5;
+    }
+    .orders-table th {
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #767677;
+        padding: 12px 16px;
+        text-align: left;
+        border-bottom: 1px solid #e5e5e5;
+    }
+    .orders-table td {
+        padding: 12px 16px;
+        border-bottom: 1px solid #f0f0f0;
+        vertical-align: middle;
+    }
+    .orders-table tbody tr:hover {
+        background: #fafafa;
+    }
+    .status-badge {
+        display: inline-block;
+        padding: 3px 10px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border-radius: 3px;
+    }
+    .status-pending { background: #fff3cd; color: #856404; }
+    .status-shipped { background: #cce5ff; color: #004085; }
+    .status-delivered { background: #d4edda; color: #155724; }
+    .status-cancelled { background: #f8d7da; color: #721c24; }
+
+    .last-updated {
+        font-size: 0.75rem;
+        color: #999;
+        text-align: right;
+        margin-top: 16px;
+    }
+
+    @media (max-width: 768px) {
+        .stats-grid { grid-template-columns: 1fr 1fr; }
+        .top-product-card { flex-direction: column; text-align: center; }
+    }
+</style>
+
+<div class="sales-dashboard">
+    <h1>
+        Sales Dashboard
+        <span class="live-indicator">
+            <span class="live-dot"></span>
+            Live
+        </span>
+    </h1>
+    <p class="sales-subtitle">Real-time sales statistics — auto-updates every 10 seconds</p>
+
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon icon-revenue">💰</div>
+            <div class="stat-value" id="totalRevenue">$<%= salesData.totalRevenue.toFixed(2) %></div>
+            <div class="stat-label">Total Revenue</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon icon-orders">📦</div>
+            <div class="stat-value" id="totalOrders"><%= salesData.totalOrders %></div>
+            <div class="stat-label">Total Orders</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon icon-avg">📊</div>
+            <div class="stat-value" id="avgOrderValue">$<%= salesData.avgOrderValue.toFixed(2) %></div>
+            <div class="stat-label">Avg Order Value</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon icon-pending">⏳</div>
+            <div class="stat-value" id="pendingOrders"><%= salesData.pendingOrders %></div>
+            <div class="stat-label">Pending</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon icon-shipped">🚚</div>
+            <div class="stat-value" id="shippedOrders"><%= salesData.shippedOrders %></div>
+            <div class="stat-label">Shipped</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon icon-delivered">✅</div>
+            <div class="stat-value" id="deliveredOrders"><%= salesData.deliveredOrders %></div>
+            <div class="stat-label">Delivered</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon icon-cancelled">❌</div>
+            <div class="stat-value" id="cancelledOrders"><%= salesData.cancelledOrders %></div>
+            <div class="stat-label">Cancelled</div>
+        </div>
+    </div>
+
+    <!-- Top Selling Product -->
+    <div class="dashboard-section">
+        <h2>Top-Selling Product</h2>
+        <div class="top-product-card" id="topProductCard">
+            <img id="topProductImage" src="/<%= salesData.topProduct.image %>" alt="<%= salesData.topProduct.name %>">
+            <div class="top-product-info">
+                <h3 id="topProductName"><%= salesData.topProduct.name %></h3>
+                <p class="tp-stat">Units Sold: <strong id="topProductUnits"><%= salesData.topProduct.unitsSold %></strong></p>
+                <p class="tp-stat">Revenue: <strong id="topProductRevenue">$<%= salesData.topProduct.revenue.toFixed(2) %></strong></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Transactions -->
+    <div class="dashboard-section">
+        <h2>Recent Transactions</h2>
+        <div class="orders-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer</th>
+                        <th>Items</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody id="recentOrdersBody">
+                    <% if (salesData.recentOrders.length === 0) { %>
+                        <tr><td colspan="6" style="text-align:center; color:#999; padding:30px;">No orders yet</td></tr>
+                    <% } else { %>
+                        <% salesData.recentOrders.forEach(function(order) { %>
+                        <tr>
+                            <td style="font-family: monospace; font-size: 0.75rem;"><%= order._id.toString().slice(-8).toUpperCase() %></td>
+                            <td><strong><%= order.customerName %></strong></td>
+                            <td><%= order.items %></td>
+                            <td><strong>$<%= order.total.toFixed(2) %></strong></td>
+                            <td><span class="status-badge status-<%= order.status %>"><%= order.status %></span></td>
+                            <td><%= new Date(order.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></td>
+                        </tr>
+                        <% }); %>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="last-updated">Last updated: <span id="lastUpdated"><%= new Date().toLocaleTimeString() %></span></div>
+</div>
+
+<!-- jQuery CDN (exam requirement) -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script>
+// ============================================================
+// REAL-TIME POLLING — jQuery (Exam Requirement #4)
+// Updates sales dashboard every 10 seconds via AJAX
+// ============================================================
+$(document).ready(function () {
+
+    function fetchSalesData() {
+        $.getJSON('/api/sales-data', function (data) {
+
+            // Update stat cards
+            $('#totalRevenue').text('$' + data.totalRevenue.toFixed(2));
+            $('#totalOrders').text(data.totalOrders);
+            $('#avgOrderValue').text('$' + data.avgOrderValue.toFixed(2));
+            $('#pendingOrders').text(data.pendingOrders);
+            $('#shippedOrders').text(data.shippedOrders);
+            $('#deliveredOrders').text(data.deliveredOrders);
+            $('#cancelledOrders').text(data.cancelledOrders);
+
+            // Update top product
+            $('#topProductName').text(data.topProduct.name);
+            $('#topProductUnits').text(data.topProduct.unitsSold);
+            $('#topProductRevenue').text('$' + data.topProduct.revenue.toFixed(2));
+            $('#topProductImage').attr('src', '/' + data.topProduct.image);
+
+            // Update recent orders table
+            var tbody = '';
+            if (data.recentOrders.length === 0) {
+                tbody = '<tr><td colspan="6" style="text-align:center; color:#999; padding:30px;">No orders yet</td></tr>';
+            } else {
+                data.recentOrders.forEach(function (order) {
+                    var orderId = order._id.slice(-8).toUpperCase();
+                    var date = new Date(order.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                    tbody += '<tr>'
+                        + '<td style="font-family:monospace;font-size:0.75rem;">' + orderId + '</td>'
+                        + '<td><strong>' + order.customerName + '</strong></td>'
+                        + '<td>' + order.items + '</td>'
+                        + '<td><strong>$' + order.total.toFixed(2) + '</strong></td>'
+                        + '<td><span class="status-badge status-' + order.status + '">' + order.status + '</span></td>'
+                        + '<td>' + date + '</td>'
+                        + '</tr>';
+                });
+            }
+            $('#recentOrdersBody').html(tbody);
+
+            // Update timestamp
+            $('#lastUpdated').text(new Date().toLocaleTimeString());
+
+        }).fail(function () {
+            console.error('Failed to fetch sales data');
+        });
+    }
+
+    // Poll every 10 seconds (exam requirement)
+    setInterval(fetchSalesData, 10000);
+});
+</script>

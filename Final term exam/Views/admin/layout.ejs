@@ -1,0 +1,46 @@
+<!-- Admin Sidebar — included in all admin pages -->
+<aside class="admin-sidebar" id="adminSidebar">
+    <div class="sidebar-header px-3 py-3 border-bottom border-secondary">
+        <a href="/admin" class="sidebar-logo d-flex align-items-center gap-2 text-decoration-none text-white">
+            <svg role="presentation" viewBox="100 100 50 32" xmlns="http://www.w3.org/2000/svg" width="50">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M 150.07 131.439 L 131.925 100 L 122.206 105.606 L 137.112 131.439 L 150.07 131.439 Z
+                         M 132.781 131.439 L 120.797 110.692 L 111.078 116.298 L 119.823 131.439 L 132.781 131.439 Z
+                         M 109.718 121.401 L 115.509 131.439 L 102.551 131.439 L 100 127.007 L 109.718 121.401 Z"
+                      fill="white">
+                </path>
+            </svg>
+            <span class="fw-bold ls-3 small">ADMIN</span>
+        </a>
+    </div>
+
+    <nav class="sidebar-nav d-flex flex-column flex-grow-1 py-2">
+        <a href="/admin" class="nav-item d-flex align-items-center gap-2 px-3 py-2 text-decoration-none <%= typeof title !== 'undefined' && title === 'Admin Dashboard' ? 'active' : '' %>">
+            <i class="bi bi-house-door fs-5"></i>
+            Dashboard
+        </a>
+        <a href="/admin/products" class="nav-item d-flex align-items-center gap-2 px-3 py-2 text-decoration-none <%= typeof title !== 'undefined' && (title === 'Manage Products' || title === 'Add New Product' || title === 'Edit Product') ? 'active' : '' %>">
+            <i class="bi bi-box-seam fs-5"></i>
+            Products
+        </a>
+        <a href="/admin/categories" class="nav-item d-flex align-items-center gap-2 px-3 py-2 text-decoration-none <%= typeof title !== 'undefined' && (title === 'Manage Categories' || title === 'Add New Category' || title === 'Edit Category') ? 'active' : '' %>">
+            <i class="bi bi-grid fs-5"></i>
+            Categories
+        </a>
+        <a href="/sales" class="nav-item d-flex align-items-center gap-2 px-3 py-2 text-decoration-none <%= typeof title !== 'undefined' && title === 'Sales Dashboard' ? 'active' : '' %>">
+            <i class="bi bi-graph-up fs-5"></i>
+            Sales Dashboard
+        </a>
+
+        <hr class="border-secondary mx-3 my-2">
+
+        <a href="/" class="nav-item d-flex align-items-center gap-2 px-3 py-2 text-decoration-none">
+            <i class="bi bi-arrow-left fs-5"></i>
+            Back to Store
+        </a>
+        <a href="/auth/logout" class="nav-item nav-logout d-flex align-items-center gap-2 px-3 py-2 text-decoration-none mt-auto">
+            <i class="bi bi-box-arrow-right fs-5"></i>
+            Logout
+        </a>
+    </nav>
+</aside>

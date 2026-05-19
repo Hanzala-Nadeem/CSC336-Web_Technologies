@@ -1,0 +1,42 @@
+<!-- Admin Sidebar — included in all admin pages -->
+<aside class="admin-sidebar" id="adminSidebar">
+    <div class="sidebar-header">
+        <a href="/admin" class="sidebar-logo">
+            <svg role="presentation" viewBox="100 100 50 32" xmlns="http://www.w3.org/2000/svg" width="50">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M 150.07 131.439 L 131.925 100 L 122.206 105.606 L 137.112 131.439 L 150.07 131.439 Z
+                         M 132.781 131.439 L 120.797 110.692 L 111.078 116.298 L 119.823 131.439 L 132.781 131.439 Z
+                         M 109.718 121.401 L 115.509 131.439 L 102.551 131.439 L 100 127.007 L 109.718 121.401 Z"
+                      fill="white">
+                </path>
+            </svg>
+            <span>ADMIN</span>
+        </a>
+    </div>
+
+    <nav class="sidebar-nav">
+        <a href="/admin" class="nav-item <%= typeof title !== 'undefined' && title === 'Admin Dashboard' ? 'active' : '' %>">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 12L5 10M5 10L12 3L19 10M5 10V20C5 20.5523 5.44772 21 6 21H9M19 10L21 12M19 10V20C19 20.5523 18.5523 21 18 21H15M9 21C9.55228 21 10 20.5523 10 20V16C10 15.4477 10.4477 15 11 15H13C13.5523 15 14 15.4477 14 16V20C14 20.5523 14.4477 21 15 21M9 21H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Dashboard
+        </a>
+        <a href="/admin/products" class="nav-item <%= typeof title !== 'undefined' && (title === 'Manage Products' || title === 'Add New Product' || title === 'Edit Product') ? 'active' : '' %>">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 7L12 3L4 7M20 7L12 11M20 7V17L12 21M12 11L4 7M12 11V21M4 7V17L12 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Products
+        </a>
+        <a href="/admin/categories" class="nav-item <%= typeof title !== 'undefined' && (title === 'Manage Categories' || title === 'Add New Category' || title === 'Edit Category') ? 'active' : '' %>">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M7 7H7.01M7 17H7.01M17 7H17.01M17 17H17.01M3 5C3 3.89543 3.89543 3 5 3H9C10.1046 3 11 3.89543 11 5V9C11 10.1046 10.1046 11 9 11H5C3.89543 11 3 10.1046 3 9V5ZM13 5C13 3.89543 13.8954 3 15 3H19C20.1046 3 21 3.89543 21 5V9C21 10.1046 20.1046 11 19 11H15C13.8954 11 13 10.1046 13 9V5ZM3 15C3 13.8954 3.89543 13 5 13H9C10.1046 13 11 13.8954 11 15V19C11 20.1046 10.1046 21 9 21H5C3.89543 21 3 20.1046 3 19V15ZM13 15C13 13.8954 13.8954 13 15 13H19C20.1046 13 21 13.8954 21 15V19C21 20.1046 20.1046 21 19 21H15C13.8954 21 13 20.1046 13 19V15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Categories
+        </a>
+
+        <div class="sidebar-divider"></div>
+
+        <a href="/" class="nav-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M10 19L3 12M3 12L10 5M3 12H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Back to Store
+        </a>
+        <a href="/auth/logout" class="nav-item nav-logout">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M17 16L21 12M21 12L17 8M21 12H7M13 16V17C13 18.6569 11.6569 20 10 20H6C4.34315 20 3 18.6569 3 17V7C3 5.34315 4.34315 4 6 4H10C11.6569 4 13 5.34315 13 7V8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Logout
+        </a>
+    </nav>
+</aside>

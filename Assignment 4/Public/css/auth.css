@@ -1,0 +1,314 @@
+/* ============================================================
+   AUTH PAGES STYLES — Login & Register
+   ============================================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f5f5f5;
+    min-height: 100vh;
+}
+
+/* --- Page Layout --- */
+.auth-page {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* --- Brand Panel (Left) --- */
+.auth-brand-panel {
+    width: 45%;
+    background: #000;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-brand-panel::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 400px;
+    height: 400px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 50%;
+}
+
+.auth-brand-panel::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 50%;
+}
+
+.brand-content {
+    position: relative;
+    z-index: 1;
+    max-width: 400px;
+}
+
+.auth-logo {
+    display: inline-block;
+    margin-bottom: 40px;
+}
+
+.brand-content h1 {
+    font-size: 42px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.brand-content p {
+    font-size: 16px;
+    color: #999;
+    line-height: 1.6;
+}
+
+/* Three Stripes Accent */
+.three-stripes {
+    display: flex;
+    gap: 8px;
+    margin-top: 40px;
+}
+
+.three-stripes span {
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: #fff;
+    opacity: 0.3;
+}
+
+.three-stripes span:first-child {
+    opacity: 0.9;
+}
+
+.three-stripes span:nth-child(2) {
+    opacity: 0.6;
+}
+
+/* --- Form Panel (Right) --- */
+.auth-form-panel {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px;
+    background: #fff;
+}
+
+.auth-form-container {
+    width: 100%;
+    max-width: 420px;
+}
+
+.auth-form-container h2 {
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    margin-bottom: 32px;
+    color: #000;
+}
+
+/* --- Form Groups --- */
+.auth-form-container .form-group {
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.auth-form-container label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.auth-form-container input[type="text"],
+.auth-form-container input[type="email"],
+.auth-form-container input[type="password"] {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 14px;
+    border: 2px solid #e5e5e5;
+    border-radius: 0;
+    background: #fafafa;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    color: #000;
+}
+
+.auth-form-container input:focus {
+    outline: none;
+    border-color: #000;
+    background: #fff;
+}
+
+.auth-form-container input::placeholder {
+    color: #999;
+}
+
+/* Password Toggle */
+.password-toggle {
+    position: absolute;
+    right: 16px;
+    top: 38px;
+    background: none;
+    border: none;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #000;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.password-toggle:hover {
+    text-decoration: underline;
+}
+
+/* Password Error */
+.password-error {
+    color: #c62828;
+    font-size: 13px;
+    margin-bottom: 16px;
+    padding: 10px;
+    background: #ffebee;
+    border-left: 3px solid #c62828;
+}
+
+/* --- Submit Button --- */
+.auth-submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: #000;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    margin-top: 8px;
+}
+
+.auth-submit-btn:hover {
+    background: #333;
+}
+
+/* --- Auth Switch --- */
+.auth-switch {
+    text-align: center;
+    margin-top: 24px;
+}
+
+.auth-switch p {
+    font-size: 14px;
+    color: #767677;
+}
+
+.auth-switch a {
+    color: #000;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.auth-switch a:hover {
+    text-decoration: underline;
+}
+
+/* --- Back to Store --- */
+.back-to-store {
+    display: block;
+    text-align: center;
+    margin-top: 32px;
+    font-size: 13px;
+    color: #767677;
+    text-decoration: none;
+}
+
+.back-to-store:hover {
+    color: #000;
+}
+
+/* --- Flash Alerts within Auth --- */
+.auth-form-container .alert {
+    border-radius: 0;
+    font-size: 13px;
+    margin-bottom: 24px;
+    border: none;
+    border-left: 3px solid;
+}
+
+.auth-form-container .alert-success {
+    background: #e8f5e9;
+    border-left-color: #2e7d32;
+    color: #2e7d32;
+}
+
+.auth-form-container .alert-danger {
+    background: #ffebee;
+    border-left-color: #c62828;
+    color: #c62828;
+}
+
+/* --- Responsive --- */
+@media (max-width: 992px) {
+    .auth-page {
+        flex-direction: column;
+    }
+
+    .auth-brand-panel {
+        width: 100%;
+        padding: 40px;
+        min-height: auto;
+    }
+
+    .brand-content h1 {
+        font-size: 32px;
+    }
+
+    .auth-form-panel {
+        padding: 40px 24px;
+    }
+}
+
+@media (max-width: 576px) {
+    .auth-brand-panel {
+        padding: 30px 20px;
+    }
+
+    .brand-content h1 {
+        font-size: 26px;
+    }
+
+    .brand-content p {
+        font-size: 14px;
+    }
+
+    .auth-form-panel {
+        padding: 30px 20px;
+    }
+
+    .auth-form-container h2 {
+        font-size: 22px;
+    }
+}
